@@ -61,7 +61,18 @@ const total = [0, 1, 2, 3].reduce((sum, value) => sum + value, 1);
 /**
  * 1 - Apenas reduce()
  */
-
+/**
+ * Par ou impar
+ * Dada uma colecao de numeros, retorna `odd` caso impar, `even` caso par
+ * @param {*} arr
+ */
+function oddOrEven(arr) {
+  return arr.reduce((acc, val) => acc + val, 0) % 2 ? "odd" : "even";
+}
+// ES6
+const oddOrEven = arr =>
+  arr.reduce((acc, val) => acc + val, 0) % 2 == 0 ? "even" : "odd";
+  
 /**
  * 1.00 - Média
  * Retorna a média de dois ou mais numeros.
@@ -74,7 +85,18 @@ const average = (...nums) =>
 
 average(...[1, 2, 3]); // 2
 average(1, 2, 3); // 2
-
+/**
+ * Count
+ * Conta todos os caracteres
+ * O resultado deve ser um objeto { 'a': 2, 'b': 1 }
+ * @param {*} string 
+ */
+const count =
+  string =>
+    string.split("").reduce(
+      (acc, val) => (acc[val] ? (acc[val]++) : (acc[val]=1), acc),
+      {}
+    ); 
 /**
  * 1.01 - Multiplicar elementos
  * Multiplique elementos na array
@@ -114,7 +136,7 @@ longestItem([1, 2, 3], [1, 2], [1, 2, 3, 4, 5]); // [1, 2, 3, 4, 5]
 longestItem([1, 2, 3], "foobar"); // 'foobar'
 
 /**
- * 1.04 - Indexar elementos 
+ * 1.04 - Indexar elementos
  * Retorna todos os indices de um valor (`val`) em uma coleção
  * Caso `val` nunca aconteca, retornar `[]`
  * Use `Array.prototype.reduce()` para iterar entre elementos e registrar os indices para os elementos que combinam.
@@ -205,9 +227,9 @@ const pick = (obj, arr) =>
 pick({ a: 1, b: "2", c: 3 }, ["a", "c"]); // { 'a': 1, 'c': 3 }
 
 /**
- * 1.10 - Padrão similar 
+ * 1.10 - Padrão similar
  * Determine se o padrao existe dentre `str`
- * Use `String.toLowerCase()`para converter strings para letra minuscula, entao itere entre `str` 
+ * Use `String.toLowerCase()`para converter strings para letra minuscula, entao itere entre `str`
  * e determine se contem todos os caracteres do `padrao`(`pattern`) e na ordem correta
  * @param {*} pattern
  * @param {*} str
@@ -481,7 +503,6 @@ const squareIt = arr => mapObject(arr, a => a * a);
 
 squareIt([1, 2, 3]); // { 1: 1, 2: 4, 3: 9 }
 
-
 /**
  * 2.04 - Conjunto de potencias
  * Retornar o conjunto de potencias de uma colecao de numeros
@@ -513,18 +534,20 @@ xProd([1, 2], ["a", "b"]); // [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
 
 // Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`.
 /**
- * Somar por 
+ * Somar por
  * Retorna a some de uma colecao, apos mapear cada elemento a um valor usando a funcao dada
  * Use `Array.prototype.map()` para mapear cada elemento ao seu valor retornado por `fn`
- * Use `Array.prototype.reduce()` para adicionar o valor acumulado, inicializado por um valor 0 
- * @param {*} arr 
- * @param {*} fn 
+ * Use `Array.prototype.reduce()` para adicionar o valor acumulado, inicializado por um valor 0
+ * @param {*} arr
+ * @param {*} fn
  */
 const sumBy = (arr, fn) =>
-  arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val) => acc + val, 0);
+  arr
+    .map(typeof fn === "function" ? fn : val => val[fn])
+    .reduce((acc, val) => acc + val, 0);
 
 sumBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], o => o.n); // 20
-sumBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 20
+sumBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], "n"); // 20
 
 /**
  * Reduce and concat
@@ -544,14 +567,12 @@ const fibonacci = n =>
 
 fibonacci(6); // [0, 1, 1, 2, 3, 5]
 
-
-
 /**
  * 3.01 - Desvio padrão
  * Retornar o desvio padrao de uma colecao de numeros
  * Use `Array.prototype.reduce()` para calcular a media (`mean`), variancia e a soma da variancia dos valores, a variancia dos valores
  * e entao determinar o desvio padrao
- * Voce pode omitir o segundo argumento para conseguir o desvio padrao simples 
+ * Voce pode omitir o segundo argumento para conseguir o desvio padrao simples
  * ou defini-lo `true` para conseguir o desvio populacional padrao
  * @param {*} arr
  * @param {*} usePopulation
@@ -741,7 +762,7 @@ reducedFilter(data, ["id", "name"], item => item.age > 24); // [{ id: 2, name: '
  * 7.00 - Reduções sucessivas
  * Aplica uma funcao contra um acumulador e cada elemento de uma colecao (da esquerda para direita),
  * retorna uma colecao de valores sucessivamente reduzidos.
- * Use `Array.prototype.reduce()` para aplicar a funcao dada na colecao dada, armazenando cada novo resultado. 
+ * Use `Array.prototype.reduce()` para aplicar a funcao dada na colecao dada, armazenando cada novo resultado.
  * @param {*} arr
  * @param {*} fn
  * @param {*} acc
@@ -759,7 +780,7 @@ reduceSuccessive([1, 2, 3, 4, 5, 6], (acc, val) => acc + val, 0); // [0, 1, 3, 6
  * Retorna uma funcao variadica.
  * Usa `Array.prototype.reduce()` nos argumentos dados para chamar cada subsequente curry level na funcao.
  * Caso o comprimento do argumento dado seja menor que `n` acusar erro.
- * Caso contrario, chama `fn` com a quantidade de argumentos correta, usando `Array.prototype.slice(0, n)`. Omitir o segundo argumento, 
+ * Caso contrario, chama `fn` com a quantidade de argumentos correta, usando `Array.prototype.slice(0, n)`. Omitir o segundo argumento,
  * o nivel de profundidade sera `1`.
  * @param {*} fn
  * @param {*} n

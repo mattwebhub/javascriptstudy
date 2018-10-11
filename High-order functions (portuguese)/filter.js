@@ -66,7 +66,15 @@ let cities = data.filter(val => val.population > 500000000);
 // cities = [{country: "China", population: 1409517397},
 //           {country: "India", population: 1339180127}]
 
-
+/**
+ * X`s e O`s
+ * Retorna `true` para caso o numero de X`s seja igual ao numero de O`s
+ * @param {*} str 
+ */
+const XO = str => {
+  str = str.toLowerCase().split('');
+  return str.filter(x => x === 'x').length === str.filter(x => x === 'o').length;
+}
 /**
  * Filtrar unicos
  * Filtra os valores nao unicos em uma colecao.

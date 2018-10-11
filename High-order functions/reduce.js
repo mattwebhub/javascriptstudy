@@ -53,6 +53,18 @@ const total = [0, 1, 2, 3].reduce((sum, value) => sum + value, 1);
  */
 
 /**
+ * Count
+ * count all the occuring characters(UTF-8) in string. 
+ * If you have string like this aba then the result should be { 'a': 2, 'b': 1 }
+ * @param {*} string 
+ */
+const count =
+  string =>
+    string.split("").reduce(
+      (acc, val) => (acc[val] ? (acc[val]++) : (acc[val]=1), acc),
+      {}
+    ); 
+/**
  * 1.1 - Returns the average of two or more numbers.
  * Use `Array.prototype.reduce()` to add each value to an accumulator,
  * initialized with a value of `0`, divide by the `length` of the array.
