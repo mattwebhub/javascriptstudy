@@ -4,7 +4,15 @@
 
 > Curated list from multiples sources divided by topic 
 
-- Traduzido para o português! (deixe seu like da brotheragem br)
+- This repository is a curated list from multiple sources, high-order functions, made entirely using ES6 features.
+
+- Divided by topic and difficulty.
+
+- For the ones that loves examples.
+
+- Please help me.
+
+> Traduzido para o português! (deixe seu like da brotheragem br)
 
 * Lista contém: Compilacao de High-order functions dividido por tópico para melhor assimilação dos conceitos.
 

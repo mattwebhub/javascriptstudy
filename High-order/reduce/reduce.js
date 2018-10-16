@@ -43,34 +43,57 @@ const total = [0, 1, 2, 3].reduce((sum, value) => sum + value, 1);
  * to the next one allowing us to do some crazy ass shenanigans like…
  */
 
- /**
-  * As you're about to see on the next examples, we can mix it with other functions such as `map()`, `filter()`, `forEach`, `Promises` 
-  * and so on... I've grouped down examples from the 30-seconds of code repository on github, they're very powerful, try to see
-  * if you can understand the code before reading it's description  
-  */
+/**
+ * As you're about to see on the next examples, we can mix it with other functions such as `map()`, `filter()`, `forEach`, `Promises`
+ * and so on... I've grouped down examples from the 30-seconds of code repository on github, they're very powerful, try to see
+ * if you can understand the code before reading it's description
+ */
 /**
  * Examples
  */
 /**
- * Consider the string "1 2 36 4 8". We want to take pairs of these numbers, 
- * concatenate each pair and determine how many of them of divisible by k.
- * 
- * @param {*} s 
- * @param {*} k 
+ * Count elements in an array
+ * @param {*} arr
  */
-function solve(s,k) {
-  return s
-    .split(' ')
-    .reduce((acc, e, i, arr) => acc.concat(
-      arr
-        .filter((f, j) => (e + f) % k === 0 && i != j)
-        .map(f => e + f)
-    ), [])
-    .length;
-}
-solve("1 2 36 4 8", 3) //  8, because they are ['12', '18', '21', '24', '42', '48', '81', '84']
-solve("1 3 6 3", 3) //  6, They are ['36', '33', '63', '63', '33', '36']
+const count = arr =>
+  arr.reduce(
+    (acc, val) => (
+      acc[val] // Does accumulated value matches this next element?
+        ? acc[val]++ // If so, add one
+        : (acc[val] = 1), // Otherwise return the current value or default value of 1
+      acc
+    ),
+    {}  // or empty array if given array is empty
+  ); 
+  
+/**
+ * Given an array of integers, find the maximum product obtained from multiplying 2 adjacent numbers in the array.
+ * @param {*} array
+ */
+const adjacentElementsProduct = array =>
+  Math.max(...array.map((el, i) => el * array[i + 1]).slice(0, -1));
+// adjacentElementsProduct([1,2,3])  ==>  return 6
 
+/**
+ * Consider the string "1 2 36 4 8". We want to take pairs of these numbers,
+ * concatenate each pair and determine how many of them of divisible by k.
+ *
+ * @param {*} s
+ * @param {*} k
+ */
+function solve(s, k) {
+  return s
+    .split(" ")
+    .reduce(
+      (acc, e, i, arr) =>
+        acc.concat(
+          arr.filter((f, j) => (e + f) % k === 0 && i != j).map(f => e + f)
+        ),
+      []
+    ).length;
+}
+solve("1 2 36 4 8", 3); //  8, because they are ['12', '18', '21', '24', '42', '48', '81', '84']
+solve("1 3 6 3", 3); //  6, They are ['36', '33', '63', '63', '33', '36']
 
 /**
  * unflatten
@@ -86,28 +109,24 @@ You get an array of integers and have to unflatten it by these rules:
   sub-array in the new array. Continue with the next number AFTER this taken numbers.
 - If there are too few numbers to take by number, take the last available numbers.
  */
-const unflatten = (flatArray) =>
+const unflatten = flatArray =>
   flatArray.reduce(
     (unflat, item, index, arr) => (
-      item < 3
-        ? unflat.push(item)
-        : unflat.push(arr.splice(index, item, null)),
+      item < 3 ? unflat.push(item) : unflat.push(arr.splice(index, item, null)),
       unflat
     ),
-    [],
+    []
   );
 /**
  * Count
- * count all the occuring characters(UTF-8) in string. 
+ * count all the occuring characters(UTF-8) in string.
  * If you have string like this aba then the result should be { 'a': 2, 'b': 1 }
- * @param {*} string 
+ * @param {*} string
  */
-const count =
-  string =>
-    string.split("").reduce(
-      (acc, val) => (acc[val] ? (acc[val]++) : (acc[val]=1), acc),
-      {}
-    ); 
+const count = string =>
+  string
+    .split("")
+    .reduce((acc, val) => (acc[val] ? acc[val]++ : (acc[val] = 1), acc), {});
 /**
  * 1.1 - Returns the average of two or more numbers.
  * Use `Array.prototype.reduce()` to add each value to an accumulator,
@@ -468,5 +487,3 @@ const users = [
   { user: "fred", age: 40, active: true }
 ];
 partition(users, o => o.active); // [[{ 'user': 'fred',    'age': 40, 'active': true }],[{ 'user': 'barney',  'age': 36, 'active': false }]]
-
-

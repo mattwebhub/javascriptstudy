@@ -2,6 +2,17 @@
 // The map() method is used to apply a function on every element in an array. A new array is then returned.
 
 /**
+ * Find the capitals
+ * Write a function that takes a single string (word) as argument.
+ * The function must return an ordered list containing the indexes of all capital letters in the string.
+ * @param {*} word
+ */
+const capitals = word => {
+  return word.match(/[A-Z]/g).map(x => {      // Returns what matches the given parameter and maps them into a new array
+    return word.indexOf(x);                   // This new array will return the indexes of the capital letters
+  });
+};
+/**
  * To Upper Case
  * Converts a given string to upper case
  * Example:
@@ -9,13 +20,15 @@
  * Output: "How Can Mirrors Be Real If Our Eyes Aren't Real"
  */
 String.prototype.toUpperCase = function() {
-  return this.split(' ').map(item => item[0].toUpperCase() + item.slice(1)).join(' ')
+  return this.split(" ")
+    .map(item => item[0].toUpperCase() + item.slice(1))
+    .join(" ");
 };
 /**
  * distruibute evenly
  * Argument: ['one', 'one', 'two', 'two', 'three', 'three', 'four', 'four']
  * Result: ['one', 'two', 'three', 'four', 'one', 'two', 'three', 'four']
- * @param {*} array 
+ * @param {*} array
  */
 const distributeEvenly = array => {
   const uniqueTypes = [...new Set(array)];
