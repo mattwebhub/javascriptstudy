@@ -2,6 +2,33 @@
 // The map() method is used to apply a function on every element in an array. A new array is then returned.
 
 /**
+ * To Upper Case
+ * Converts a given string to upper case
+ * Example:
+ * Input:  "How can mirrors be real if our eyes aren't real"
+ * Output: "How Can Mirrors Be Real If Our Eyes Aren't Real"
+ */
+String.prototype.toUpperCase = function() {
+  return this.split(' ').map(item => item[0].toUpperCase() + item.slice(1)).join(' ')
+};
+/**
+ * distruibute evenly
+ * Argument: ['one', 'one', 'two', 'two', 'three', 'three', 'four', 'four']
+ * Result: ['one', 'two', 'three', 'four', 'one', 'two', 'three', 'four']
+ * @param {*} array 
+ */
+const distributeEvenly = array => {
+  const uniqueTypes = [...new Set(array)];
+  const arrayOfTypes = uniqueTypes.map(outer =>
+    array.filter(inner => outer === inner)
+  );
+
+  return array
+    .map((item, i) => arrayOfTypes.map(el => el[i]))
+    .reduce((a, b) => a.concat(b))
+    .filter(_ => _);
+};
+/**
  * 2.00 - Media por
  * Retorna a media de uma colecao, apos mapear cada elemento a um valor usando a funcao dada
  * Use `Array.prototype.map()` para mapear cada elemento a um valor retornado por `fn`
