@@ -12,6 +12,20 @@ const findLast = (arr, fn) => arr.filter(fn).pop();
 
 findLast([1, 2, 3, 4], n => n % 2 === 1); // 3
 
+/**
+ * Given an array of integers, remove the smallest value.
+ * Do not mutate the original array/list.
+ * If there are multiple elements with the same value, remove the one with a lower index. 
+ * If you get an empty array/list, return an empty array/list.
+ * @param {*} numbers 
+ */
+const removeSmallest = numbers => {
+  numbers
+    .filter((n,i) => {
+      i !== numbers.indexOf(Math.min(...numbers))}
+    );
+}
+
 // ### compact
 
 // Removes falsey values from an array.

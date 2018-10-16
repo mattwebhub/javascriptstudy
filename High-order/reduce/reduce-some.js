@@ -1,0 +1,50 @@
+/**
+ * Reduce and some
+ */
+/**
+ * Returns all unique values of an array, based on a provided comparator function.
+ * Use `Array.prototype.reduce()` and `Array.prototype.some()` for an array containing only the first unique occurence of each value,
+ * based on the comparator function, `fn`.
+ * The comparator function takes two arguments: the values of the two elements being compared.
+ * @param {*} arr
+ * @param {*} fn
+ */
+const uniqueElementsBy = (arr, fn) =>
+  arr.reduce((acc, v) => {
+    if (!acc.some(x => fn(v, x))) acc.push(v);
+    return acc;
+  }, []);
+
+uniqueElementsBy(
+  [
+    { id: 0, value: "a" },
+    { id: 1, value: "b" },
+    { id: 2, value: "c" },
+    { id: 1, value: "d" },
+    { id: 0, value: "e" }
+  ],
+  (a, b) => a.id == b.id
+); // [ { id: 0, value: 'a' }, { id: 1, value: 'b' }, { id: 2, value: 'c' } ]
+/**
+ * Returns all unique values of an array, based on a provided comparator function.
+ * Use `Array.prototype.reduce()` and `Array.prototype.some()` for an array containing only the last unique occurence of each value, based on the comparator function, `fn`.
+ * The comparator function takes two arguments: the values of the two elements being compared.
+ * @param {*} arr
+ * @param {*} fn
+ */
+const uniqueElementsByRight = (arr, fn) =>
+  arr.reduceRight((acc, v) => {
+    if (!acc.some(x => fn(v, x))) acc.push(v);
+    return acc;
+  }, []);
+
+uniqueElementsByRight(
+  [
+    { id: 0, value: "a" },
+    { id: 1, value: "b" },
+    { id: 2, value: "c" },
+    { id: 1, value: "d" },
+    { id: 0, value: "e" }
+  ],
+  (a, b) => a.id == b.id
+); // [ { id: 0, value: 'e' }, { id: 1, value: 'd' }, { id: 2, value: 'c' } ]
