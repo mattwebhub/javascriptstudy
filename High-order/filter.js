@@ -1,3 +1,34 @@
+/**
+ * Employee Search
+ * Given the person's name, find it's role in a company
+ * let employees = [ {firstName: "Dipper", lastName: "Pines", role: "Boss"}, ...... ]
+ * @param {string} name
+ */
+const findEmployeesRole = name => {
+  const names = name.split(" ");
+  const foundEmployees = employees.filter(
+    x => x.firstName == names[0] && x.lastName == names[1]
+  );
+
+  return foundEmployees.length != 1
+    ? "Does not work here!"
+    : foundEmployees[0].role;
+};
+/**
+ * Partial search
+ * Write a method that will search an array of strings for all strings that contain another string,
+ * ignoring capitalization.
+ * Then return an array of the found strings.
+ * If the string to search for is "me", and the array to search is
+ * ["home", "milk", "Mercury", "fish"], the method should return ["home", "Mercury"].
+ * @param {*} query
+ * @param {*} seq
+ */
+const wordSearch = (query, seq) =>
+  (q => (q.length ? q : ["Empty"]))(
+    seq.filter(x => x.toLowerCase().includes(query.toLowerCase()))
+  );
+
 //The filter() method returns a new array created from all elements that pass a certain test preformed on an original array.
 //Here’s what the syntax looks like:
 let newArr = oldArr.filter(callback);
@@ -15,16 +46,15 @@ findLast([1, 2, 3, 4], n => n % 2 === 1); // 3
 /**
  * Given an array of integers, remove the smallest value.
  * Do not mutate the original array/list.
- * If there are multiple elements with the same value, remove the one with a lower index. 
+ * If there are multiple elements with the same value, remove the one with a lower index.
  * If you get an empty array/list, return an empty array/list.
- * @param {*} numbers 
+ * @param {*} numbers
  */
 const removeSmallest = numbers => {
-  numbers
-    .filter((n,i) => {
-      i !== numbers.indexOf(Math.min(...numbers))}
-    );
-}
+  numbers.filter((n, i) => {
+    i !== numbers.indexOf(Math.min(...numbers));
+  });
+};
 
 // ### compact
 
@@ -82,7 +112,6 @@ intersectionWith(
 
 // Returns an array of elements that appear in both arrays.
 
-
 const similarity = (arr, values) => arr.filter(v => values.includes(v));
 
 similarity([1, 2, 3], [1, 2, 4]); // [1, 2]
@@ -118,7 +147,7 @@ without([2, 1, 2, 3], 1, 2); // [3]
 
 // Converts a given string into an array of words.
 
-// Use `String.prototype.split()` with a supplied pattern (defaults to non-alpha as a regexp) to convert to an array of strings. 
+// Use `String.prototype.split()` with a supplied pattern (defaults to non-alpha as a regexp) to convert to an array of strings.
 //Use `Array.prototype.filter()` to remove any empty strings.
 // Omit the second argument to use the default regexp.
 
@@ -260,14 +289,12 @@ const omitBy = (obj, fn) =>
 
 omitBy({ a: 1, b: "2", c: 3 }, x => typeof x === "number"); // { b: '2' }
 
-
 const pickBy = (obj, fn) =>
   Object.keys(obj)
     .filter(k => fn(obj[k], k))
     .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});
 
 pickBy({ a: 1, b: "2", c: 3 }, x => typeof x === "number"); // { 'a': 1, 'c': 3 }
-
 
 const reducedFilter = (data, keys, fn) =>
   data.filter(fn).map(el =>
@@ -292,7 +319,6 @@ const data = [
 
 reducedFilter(data, ["id", "name"], item => item.age > 24); // [{ id: 2, name: 'mike'}]
 
-
 const nest = (items, id = null, link = "parent_id") =>
   items
     .filter(item => item[link] === id)
@@ -307,7 +333,6 @@ const comments = [
   { id: 5, parent_id: 4 }
 ];
 const nestedComments = nest(comments); // [{ id: 1, parent_id: null, children: [...] }]
-
 
 const get = (from, ...selectors) =>
   [...selectors].map(s =>
@@ -331,7 +356,6 @@ const findLastIndex = (arr, fn) =>
     .pop()[0];
 
 findLastIndex([1, 2, 3, 4], n => n % 2 === 1); // 2 (index of the value 3)
-
 
 const factors = (num, primes = false) => {
   const isPrime = num => {
@@ -358,7 +382,6 @@ factors(12, true); // [2,3]
 factors(-12); // [2, -2, 3, -3, 4, -4, 6, -6, 12, -12]
 factors(-12, true); // [2,3]
 
-
 const formatDuration = ms => {
   if (ms < 0) ms = -ms;
   const time = {
@@ -376,7 +399,6 @@ const formatDuration = ms => {
 
 formatDuration(1001); // '1 second, 1 millisecond'
 formatDuration(34325055574); // '397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds'
-
 
 const filterNonUniqueBy = (arr, fn) =>
   arr.filter((v, i) => arr.every((x, j) => (i === j) === fn(v, x, i, j)));

@@ -1,6 +1,20 @@
 // Map Definition & Syntax
 // The map() method is used to apply a function on every element in an array. A new array is then returned.
-
+/**
+ * Create a method that accepts an array of names,
+ * and returns an array of each name with its first letter capitalized.
+ * @param {*} arr
+ */
+const capMe = arr =>
+  arr.map(
+    el =>
+      el[0].toUpperCase() +          // Upper case first element
+      el
+        .slice(1)                    // Takes out the first replicated letter
+        .split("")                   // Separates the first element from the body
+        .map(m => m.toLowerCase())   // Lowercase every element
+        .join("")                    // Joins back again to the body
+  );
 /**
  * Find the capitals
  * Write a function that takes a single string (word) as argument.
@@ -8,8 +22,9 @@
  * @param {*} word
  */
 const capitals = word => {
-  return word.match(/[A-Z]/g).map(x => {      // Returns what matches the given parameter and maps them into a new array
-    return word.indexOf(x);                   // This new array will return the indexes of the capital letters
+  return word.match(/[A-Z]/g).map(x => {
+    // Returns what matches the given parameter and maps them into a new array
+    return word.indexOf(x); // This new array will return the indexes of the capital letters
   });
 };
 /**
