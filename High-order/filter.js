@@ -42,6 +42,19 @@ let newArr = oldArr.filter(callback);
 const findLast = (arr, fn) => arr.filter(fn).pop();
 
 findLast([1, 2, 3, 4], n => n % 2 === 1); // 3
+/**
+ * Write an algorithm that takes an array and moves all of the zeros to the end, 
+ * preserving the order of the other elements.
+ * @param {*} withZeroes 
+ */
+const moveZeros = function (withZeroes) {
+  let noZeros = withZeroes.filter(c => c !== 0)      // Filters off 0`s
+  let lengthDif = withZeroes.length - noZeros.length // Difference between zeros and no zeros
+  
+  return noZeros.concat(Array(lengthDif).fill(0))    // Concat `noZeros` with a created array
+                                                     // of length `dif` and fill it with 0`s
+}
+// moveZeros([false,1,0,1,2,0,1,3,"a"]) // returns[false,1,1,2,1,3,"a",0,0]
 
 /**
  * Given an array of integers, remove the smallest value.
