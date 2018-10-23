@@ -51,11 +51,64 @@ const total = [0, 1, 2, 3].reduce((sum, value) => sum + value, 1);
 /**
  * Examples
  */
+
+/**
+ * Easy ones
+ */
+
+/**
+ * Returns the average of two or more numbers.
+ * Use `Array.prototype.reduce()` to add each value to an accumulator,
+ * initialized with a value of `0`, divide by the `length` of the array.
+ * @param  {[Number]} nums
+ */
+
+const average = (...nums) =>
+  nums.reduce((acc, val) => acc + val, 0) / nums.length;
+
+average(...[1, 2, 3]); // 2
+average(1, 2, 3); // 2
+
+/**
+ * Multiply elements in an array
+ * obs: In here we don't want to pass the initial value as 0 otherwise the multiply would become 0
+ * @param  {...any} nums
+ */
+const multiply = (...nums) => nums.reduce((acc, val) => acc * val, 1);
+
+/**
+ * Takes any number of iterable objects or objects with a `length` property and returns the longest one.
+ * If multiple objects have the same length, the first one will be returned.
+ * Returns `undefined` if no arguments are provided.
+ * Use `Array.prototype.reduce()`, comparing the `length` of objects to find the longest one.
+ * @param {Number} val
+ * @param  {...any} vals
+ */
+const longestItem = (val, ...vals) =>
+  [val, ...vals].reduce((a, x) => (x.length > a.length ? x : a));
+
+longestItem("this", "is", "a", "testcase"); // 'testcase'
+longestItem(...["a", "ab", "abc"]); // 'abc'
+longestItem(...["a", "ab", "abc"], "abcd"); // 'abcd'
+longestItem([1, 2, 3], [1, 2], [1, 2, 3, 4, 5]); // [1, 2, 3, 4, 5]
+longestItem([1, 2, 3], "foobar"); // 'foobar'
+
+/**
+ * 1.3 - Counts the occurrences of a value in an array.
+ * Use `Array.prototype.reduce()` to increment a counter each time you encounter the specific value inside the array.
+ * @param {[Number]} arr
+ * @param {Number} val
+ */
+const countOccurrences = (arr, val) =>
+  arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+
+countOccurrences([1, 1, 2, 1, 2, 3], 1); // 3
+
 /**
  * Count elements in an array
- * @param {*} arr
+ * @param {[]} arr
  */
-const count = arr =>
+const countElements = arr =>
   arr.reduce(
     (acc, val) => (
       acc[val] // Does accumulated value matches this next element?
@@ -65,7 +118,7 @@ const count = arr =>
     ),
     {}  // or empty array if given array is empty
   ); 
-  
+
 /**
  * Given an array of integers, find the maximum product obtained from multiplying 2 adjacent numbers in the array.
  * @param {*} array
@@ -127,36 +180,6 @@ const count = string =>
   string
     .split("")
     .reduce((acc, val) => (acc[val] ? acc[val]++ : (acc[val] = 1), acc), {});
-/**
- * 1.1 - Returns the average of two or more numbers.
- * Use `Array.prototype.reduce()` to add each value to an accumulator,
- * initialized with a value of `0`, divide by the `length` of the array.
- * @param  {...any} nums
- */
-
-const average = (...nums) =>
-  nums.reduce((acc, val) => acc + val, 0) / nums.length;
-
-average(...[1, 2, 3]); // 2
-average(1, 2, 3); // 2
-
-/**
- * 1.2 - Multiply elements in an array
- * obs: In here we don't want to pass the initial value as 0 otherwise the multiply would become 0
- * @param  {...any} nums
- */
-const multiply = (...nums) => nums.reduce((acc, val) => acc * val, 1);
-
-/**
- * 1.3 - Counts the occurrences of a value in an array.
- * Use `Array.prototype.reduce()` to increment a counter each time you encounter the specific value inside the array.
- * @param {*} arr
- * @param {*} val
- */
-const countOccurrences = (arr, val) =>
-  arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
-
-countOccurrences([1, 1, 2, 1, 2, 3], 1); // 3
 
 /**
  * Given an array of valid property identifiers and an array of values, return an object associating the properties to the values.
@@ -213,22 +236,6 @@ const lcm = (...arr) => {
 lcm(12, 7); // 84
 lcm(...[1, 3, 4, 5]); // 60
 
-/**
- * 1.7 - Takes any number of iterable objects or objects with a `length` property and returns the longest one.
- * If multiple objects have the same length, the first one will be returned.
- * Returns `undefined` if no arguments are provided.
- * Use `Array.prototype.reduce()`, comparing the `length` of objects to find the longest one.
- * @param {*} val
- * @param  {...any} vals
- */
-const longestItem = (val, ...vals) =>
-  [val, ...vals].reduce((a, x) => (x.length > a.length ? x : a));
-
-longestItem("this", "is", "a", "testcase"); // 'testcase'
-longestItem(...["a", "ab", "abc"]); // 'abc'
-longestItem(...["a", "ab", "abc"], "abcd"); // 'abcd'
-longestItem([1, 2, 3], [1, 2], [1, 2, 3, 4, 5]); // [1, 2, 3, 4, 5]
-longestItem([1, 2, 3], "foobar"); // 'foobar'
 
 /**
  * Uses the percentile formula to calculate how many numbers in the given array are less or equal to the given value.
@@ -445,10 +452,6 @@ const sdbm = str => {
 sdbm("name"); // -3521204949
 
 /**
- * Reduce, filter and/or push
- */
-
-/**
  * Inverts the key-value pairs of an object, without mutating it. The corresponding inverted value of each inverted key is an array of keys responsible for generating the inverted value. If a function is supplied, it is applied to each inverted key.
  * Use `Object.keys()` and `Array.prototype.reduce()` to invert the key-value pairs of an object and apply the function provided (if any).
  * Omit the second argument, `fn`, to get the inverted keys without applying a function to them.
@@ -487,3 +490,23 @@ const users = [
   { user: "fred", age: 40, active: true }
 ];
 partition(users, o => o.active); // [[{ 'user': 'fred',    'age': 40, 'active': true }],[{ 'user': 'barney',  'age': 36, 'active': false }]]
+
+/**
+ * Given a string of words, you need to find the highest scoring word.
+ * Each letter of a word scores points according to it's position in the alphabet: a = 1, b = 2, c = 3 etc.
+ * You need to return the highest scoring word as a string.
+ * If two words score the same, return the word that appears earliest in the original string.
+ * All letters will be lowercase and all inputs will be valid.
+ * @param {*} words 
+ */
+function high(words) {
+  const alpha = ' abcdefghijklmnopqrstuvwxyz';
+  const score = word => word.split('').reduce((a, b) => a + alpha.indexOf(b), 0);
+
+  return words
+    .split(' ')
+    .map((word, pos) => ({ word: word, pos: pos, score: score(word) }))
+    .sort((a, b) => a.score - b.score || b.pos - a.pos)
+    .pop()
+    .word;
+}

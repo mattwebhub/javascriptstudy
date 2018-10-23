@@ -57,6 +57,23 @@ toKebabCase(
 ); // "i-am-listening-to-fm-while-loading-different-url-on-my-browser-and-also-editing-xml-and-html"
 
 /**
+ * Sortear uma colecao de numeros pares de forma crescente, mas deixar os numeros impares intactos
+ * @param {*} array
+ */
+function sortArray(array) {
+  const odd = array.filter(x => x % 2).sort((a, b) => a - b);
+  return array.map(x => (x % 2 ? odd.shift() : x));
+}
+
+const sortArray = array => {
+  let oddArr = array
+  .filter(el => el % 2 !== 0) // Filtra os numeros impares
+  .sort((a, b) => a - b); // Sorteia os numeros impares em ordem crescente
+  
+  return array.map(el => (el % 2 === 0 ? el : oddArr.shift())); 
+};
+
+/**
  * Mapear string
  * Cria uma nova string com os resultados da funcao dada em cada caractere.
  * Use `String.prototype.split('')` e `Array.prototype.map()` para chamar a funcao dada, `fn`, para cada caractere em `str`

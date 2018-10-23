@@ -1,11 +1,10 @@
-
 /**
  * O metodo filter() retorna uma nova colecao criada a partir de todos os elementos que passam dos parametros a uma nova colecao.
  * Olhe a sintaxe abaixo:
  */
 let newArr = oldArr.filter(callback);
 
-let newArray = oldArray.filter((currentElement, index, array, thisArg) => {})
+let newArray = oldArray.filter((currentElement, index, array, thisArg) => {});
 
 /**
  * currentElement: o atual elemento sendo processado na colecao. (obrigatorio)
@@ -27,10 +26,10 @@ for (var i = 0; i < arr.length; i++) {
  * Utilizando o método filter para a mesma funcao...
  */
 let even = arr.filter(val => {
-    return val % 2 === 0;
-  });
-  // even = [2,4,6]
-  
+  return val % 2 === 0;
+});
+// even = [2,4,6]
+
 /**
  * Com a introducao das arrow functions, podemos simplificar a sintaxe acima ainda mais:
  */
@@ -40,41 +39,54 @@ let even = arr.filter(val => val % 2 === 0);
  * Exemplos
  */
 
- /**
-  * Filtrar simples
-  */
+/**
+ * Filtrar simples
+ */
 let data = [
   {
-    country: 'China',
-    population: 1409517397,
+    country: "China",
+    population: 1409517397
   },
   {
-    country: 'India',
-    population: 1339180127,
+    country: "India",
+    population: 1339180127
   },
   {
-    country: 'USA',
-    population: 324459463,
+    country: "USA",
+    population: 324459463
   },
   {
-    country: 'Indonesia',
-    population: 263991379,
+    country: "Indonesia",
+    population: 263991379
   }
-]
+];
 
 let cities = data.filter(val => val.population > 500000000);
 // cities = [{country: "China", population: 1409517397},
 //           {country: "India", population: 1339180127}]
 
-/**
+/**r
  * X`s e O`s
  * Retorna `true` para caso o numero de X`s seja igual ao numero de O`s
- * @param {*} str 
+ * @param {*} str
  */
 const XO = str => {
-  str = str.toLowerCase().split('');
-  return str.filter(x => x === 'x').length === str.filter(x => x === 'o').length;
-}
+  str = str.toLowerCase().split("");
+  return (
+    str.filter(x => x === "x").length === str.filter(x => x === "o").length
+  );
+};
+
+/**
+ * É isograma?
+ */
+const isIsogram = str =>
+  str
+    .toLowerCase()
+    .split("")
+    .filter((char, i, arr) => !arr.includes(char, i + 1)).length === str.length;
+
+const isIsogram = str => str.length === [...new Set(str.toLowerCase())].length;
 /**
  * Filtrar unicos
  * Filtra os valores nao unicos em uma colecao.
@@ -107,7 +119,6 @@ filterNonUniqueBy(
   ],
   (a, b) => a.id == b.id
 ); // [ { id: 2, value: 'c' } ]
-
 
 /**
  * Achar ultimo
@@ -352,7 +363,6 @@ const everyNth = (arr, nth) => arr.filter((e, i) => i % nth === nth - 1);
 
 everyNth([1, 2, 3, 4, 5, 6], 2); // [ 2, 4, 6 ]
 
-
 /**
  * Omitir por
  * Cria um objeto composto pelas propriedades da funcao dada se retorna falso. A funcao é chamada com dois argumentos: valor e chave.
@@ -554,4 +564,3 @@ const formatDuration = ms => {
 
 formatDuration(1001); // '1 second, 1 millisecond'
 formatDuration(34325055574); // '397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds'
-

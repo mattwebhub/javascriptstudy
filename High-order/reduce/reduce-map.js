@@ -1,4 +1,40 @@
 /**
+ * Who is online?
+ * You want to show your users which of their friends are online and available to chat!
+ * Given an input of an array of objects containing usernames, status and time since last activity (in mins), 
+ * create a function to work out who is online, offline and away.
+ * If someone is online but their lastActivity was more than 10 minutes ago they are to be considered away.
+ * @param {*} friends
+ */
+const whosOnline = friends =>
+  [
+    [
+      "online",
+      friend => friend.status === "online" && friend.lastActivity <= 10
+    ],
+    ["away", friend => friend.status === "online" && friend.lastActivity > 10],
+    ["offline", friend => friend.status === "offline"]
+  ]
+    .map(([status, func]) => [
+      status,
+      friends.filter(func).map(friend => friend.username)
+    ])
+    .reduce((result, [status, array]) => {
+      if (array.length) result[status] = array;
+      return result;
+    }, {});
+
+/**
+ * Another solution...
+ */
+
+const whosOnline = friends =>
+  friends.reduce((a, { username, status, lastActivity }) => {
+    const fStatus = status === "online" && lastActivity > 10 ? "away" : status;
+    a[fStatus] ? a[fStatus].push(username) : (a[fStatus] = [username]);
+    return a;
+  }, {});       // Very interesting this one!
+/**
  * 2.0 - Returns the average of an array, after mapping each element to a value using the provided function.
  * Use `Array.prototype.map()` to map each element to the value returned by `fn`,
  * `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`,
@@ -92,7 +128,6 @@ const unzip = arr =>
 unzip([["a", 1, true], ["b", 2, false]]); //[['a', 'b'], [1, 2], [true, false]]
 unzip([["a", 1, true], ["b", 2]]); //[['a', 'b'], [1, 2], [true]]
 
-
 /**
  * Creates an array of elements, ungrouping the elements in an array produced by [zip](#zip) and applying the provided function.
  * Use `Math.max.apply()` to get the longest subarray in the array, `Array.prototype.map()` to make each element an array.
@@ -115,7 +150,6 @@ unzipWith([[1, 10, 100], [2, 20, 200]], (...args) =>
   args.reduce((acc, v) => acc + v, 0)
 ); // [3, 30, 300]
 
-
 /**
  * ⚠️ **WARNING**: This function's execution time increases exponentially with each character. Anything more than 8 to 10 characters will cause your browser to hang as it tries to solve all the different combinations.
  * Generates all permutations of a string (contains duplicates).
@@ -126,19 +160,18 @@ unzipWith([[1, 10, 100], [2, 20, 200]], (...args) =>
  * @param {*} str
  */
 const stringPermutations = str => {
-    if (str.length <= 2) return str.length === 2 ? [str, str[1] + str[0]] : [str];
-    return str
-      .split("")
-      .reduce(
-        (acc, letter, i) =>
-          acc.concat(
-            stringPermutations(str.slice(0, i) + str.slice(i + 1)).map(
-              val => letter + val
-            )
-          ),
-        []
-      );
-  };
-  
-  stringPermutations("abc"); // ['abc','acb','bac','bca','cab','cba']
-  
+  if (str.length <= 2) return str.length === 2 ? [str, str[1] + str[0]] : [str];
+  return str
+    .split("")
+    .reduce(
+      (acc, letter, i) =>
+        acc.concat(
+          stringPermutations(str.slice(0, i) + str.slice(i + 1)).map(
+            val => letter + val
+          )
+        ),
+      []
+    );
+};
+
+stringPermutations("abc"); // ['abc','acb','bac','bca','cab','cba']
