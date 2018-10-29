@@ -3,6 +3,27 @@
  */
 
 /**
+ * Complete the method so that it returns an array of all ID's passed in. 
+ * The data structure will be similar to the following:
+ var data = {
+   id: 1,
+   items: [
+     {id: 2},
+     {id: 3, items: [
+       {id: 4},
+       {id: 5}
+     ]}
+   ]
+ }
+ * @param {*} data 
+ * extractIds(data) // should return [1,2,3,4,5]
+ */
+const extractIds = data =>
+  [data.id]
+    .concat(data.items ? data.items.map(extractIds): [])
+    .filter(x => x)
+    .reduce((a, b) => a.concat(b), [])
+/**
  * Creates an object composed of the properties the given function returns falsey for. The function is invoked with two arguments: (value, key).
  * Use `Object.keys(obj)` and `Array.prototype.filter()`to remove the keys for which `fn` returns a truthy value.
  * Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.
