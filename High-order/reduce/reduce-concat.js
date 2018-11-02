@@ -70,14 +70,26 @@ standardDeviation([10, 2, 38, 23, 38, 23, 21], true); // 12.29899614287479 (popu
  */
 const flatten = (arr, depth = 1) =>
   arr.reduce(
-    (a, v) =>
-      a.concat(depth > 1 && Array.isArray(v) ? flatten(v, depth - 1) : v),
+    (acc, val) =>
+      acc.concat(depth > 1 && Array.isArray(val) ? flatten(val, depth - 1) : v),
     []
   );
 
 flatten([1, [2], 3, 4]); // [1, 2, 3, 4]
 flatten([1, [2, [3, [4, 5], 6], 7], 8], 2); // [1, 2, 3, [4, 5], 6, 7, 8]
 
+
+/**
+ * flattenNoMatterDepth
+ * @param  {...any} input 
+ */
+let flatten = (...input) => {
+  return input.reduce((result, current) => {
+    return Array.isArray(current) ? 
+            result.concat(flatten(...current)) :
+            result.concat(current);
+  }, []);
+}
 /**
  * Creates a new object from the combination of two or more objects.
  * Use `Array.prototype.reduce()` combined with `Object.keys(obj)` to iterate over all objects and keys.

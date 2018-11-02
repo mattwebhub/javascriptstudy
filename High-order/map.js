@@ -1,5 +1,8 @@
 // Map Definition & Syntax
 // The map() method is used to apply a function on every element in an array. A new array is then returned.
+
+
+
 /**
  * Create a method that accepts an array of names,
  * and returns an array of each name with its first letter capitalized.
